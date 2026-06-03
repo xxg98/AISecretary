@@ -8,6 +8,7 @@ COPY kai-lei-framework/pom.xml ./kai-lei-framework/pom.xml
 COPY kai-lei-system/pom.xml ./kai-lei-system/pom.xml
 COPY kai-lei-business/pom.xml ./kai-lei-business/pom.xml
 COPY kai-lei-server/pom.xml ./kai-lei-server/pom.xml
+COPY settings.xml /usr/share/maven/conf/settings.xml
 RUN mvn -B -q -pl kai-lei-server -am dependency:go-offline
 
 COPY kai-lei-common/src ./kai-lei-common/src
