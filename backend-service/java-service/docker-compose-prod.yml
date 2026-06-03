@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  java-service:
+    build: .
+    container_name: java-service
+    restart: unless-stopped
+    ports:
+      - "8083:8080"
+    environment:
+      - TZ=Asia/Shanghai

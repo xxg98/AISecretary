@@ -1,0 +1,27 @@
+name: finance-demo-collector
+version: 0.1.0
+domain: finance
+type: active
+description: 财务数据采集器示例，用于演示应收、应付、现金流等数据采集能力。
+capabilities:
+  - name: get_receivables
+    description: 查询应收账款
+  - name: get_payables
+    description: 查询应付账款
+  - name: get_cash_flow
+    description: 查询现金流概览
+auth:
+  type: custom
+runtime:
+  language: python
+  entry: collector.py
+communication:
+  http:
+    enabled: true
+    base_path: /collectors/finance
+  mq:
+    enabled: true
+    request_topic: collector.tasks.finance
+    result_topic: collector.results
+  mcp:
+    enabled: false

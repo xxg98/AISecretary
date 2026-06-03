@@ -1,0 +1,87 @@
+pipeline {
+    agent any
+
+    environment {
+        // Docker 镜像仓库配置（可选，替换为你的镜像仓库地址）
+        DOCKER_REGISTRY = 'registry.cn-hangzhou.aliyuncs.com'
+        DOCKER_NAMESPACE = 'backend'
+        APP_NAME = 'java-service'
+        JAVA_SERVICE_DIR = 'backend-service/java-service'
+        // Maven 国内镜像配置已在 Dockerfile 中预设，无需额外配置
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+//         stage('Build with Maven') {
+//             steps {
+//                 // 使用 Maven 构建，利用预设的阿里云镜像加速依赖下载
+//                 sh '''
+//                     mvn clean compile
+//                 '''
+//             }
+//         }
+//
+//         stage('Test') {
+//             steps {
+//                 sh '''
+//                     mvn test
+//                 '''
+//             }
+//         }
+//
+//         stage('Package') {
+//             steps {
+//                 sh '''
+//                     mvn package -DskipTests
+//                 '''
+//             }
+//         }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // 获取构建时间戳
+                    def timestamp = sh(script: "date +%Y%m%d%H%M%S", returnStdout: true).trim()
+                    // 构建 Docker 镜像
+                    dir("${JAVA_SERVICE_DIR}") {
+                        sh """
+                            docker build -t ${APP_NAME}:latest -t ${APP_NAME}:${timestamp} .
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Deploy with Docker Compose') {
+            steps {
+                script {
+                    // 使用 Docker Compose 部署
+                    dir("${JAVA_SERVICE_DIR}") {
+                        sh """
+                            # 停止并删除旧容器（如果存在）
+                            docker-compose -f docker-compose-prod.yml down --remove-orphans || true
+                            # 启动新容器
+                            docker-compose -f docker-compose-prod.yml up -d --build
+                            # 清理旧镜像
+                            docker image prune -f
+                        """
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully! Application is deployed.'
+        }
+        failure {
+            echo 'Pipeline failed. Please check the logs.'
+        }
+    }
+}

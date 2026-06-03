@@ -1,0 +1,111 @@
+# Docker/容器环境：面向服务化部署，默认启用 Nacos
+spring:
+  cloud:
+    nacos:
+      server-addr: ${NACOS_SERVER_ADDR:nacos:8848}
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:nacos}
+      discovery:
+        enabled: ${NACOS_DISCOVERY_ENABLED:true}
+        namespace: ${NACOS_NAMESPACE:}
+        group: ${NACOS_DISCOVERY_GROUP:DEFAULT_GROUP}
+        service: ${spring.application.name}
+        metadata:
+          version: ${APP_VERSION:0.0.1}
+          env: docker
+      config:
+        enabled: ${NACOS_CONFIG_ENABLED:true}
+        namespace: ${NACOS_NAMESPACE:}
+        group: ${NACOS_CONFIG_GROUP:DEFAULT_GROUP}
+        file-extension: yml
+  datasource:
+    dynamic:
+      primary: master
+      strict: true
+      datasource:
+        master:
+          url: jdbc:mysql://${MYSQL_HOST:mysql}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:kai_lei_ai_secretary}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+          username: ${MYSQL_USERNAME:root}
+          password: ${MYSQL_PASSWORD:}
+          driver-class-name: com.mysql.cj.jdbc.Driver
+  ai:
+    openai:
+      api-key: ${SPRING_AI_OPENAI_API_KEY:}
+      base-url: ${SPRING_AI_OPENAI_BASE_URL:https://api.openai.com}
+      chat:
+        options:
+          model: ${SPRING_AI_OPENAI_CHAT_MODEL:gpt-4o-mini}
+          temperature: ${SPRING_AI_OPENAI_TEMPERATURE:0.7}
+  data:
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: ${REDIS_DATABASE:0}
+      timeout: 3000
+      lettuce:
+        pool:
+          enabled: true
+          max-active: 32
+          max-idle: 16
+          min-idle: 4
+          max-wait: -1
+
+server:
+  port: ${SERVER_PORT:8082}
+
+users:
+  name: Docker环境
+  open: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.kailei.aisecretary.controller
+
+knife4j:
+  enable: ${KNIFE4J_ENABLED:false}
+  setting:
+    language: zh_cn
+
+auto-table:
+  mode: ${AUTO_TABLE_MODE:validate}
+  show-banner: true
+  auto-drop-column: ${AUTO_TABLE_AUTO_DROP_COLUMN:false}
+  auto-build-database: ${AUTO_TABLE_AUTO_BUILD_DATABASE:false}
+
+xxl:
+  job:
+    admin:
+      addresses: ${XXL_JOB_ADMIN_ADDRESSES:}
+      accessToken: ${XXL_JOB_ADMIN_ACCESS_TOKEN:default_token}
+      timeout: ${XXL_JOB_ADMIN_TIMEOUT:3}
+    executor:
+      enabled: ${XXL_JOB_EXECUTOR_ENABLED:false}
+      appname: ${XXL_JOB_EXECUTOR_APPNAME:kai-lei-ai-secretary-java-service}
+      address: ${XXL_JOB_EXECUTOR_ADDRESS:}
+      ip: ${XXL_JOB_EXECUTOR_IP:}
+      port: ${XXL_JOB_EXECUTOR_PORT:0}
+      logpath: ${XXL_JOB_EXECUTOR_LOGPATH:/data/applogs/xxl-job/jobhandler}
+      logretentiondays: ${XXL_JOB_EXECUTOR_LOGRETENTIONDAYS:30}
+      excludedpackage: ${XXL_JOB_EXECUTOR_EXCLUDEDPACKAGE:org.springframework.spring}
+# x-file-storage 文档/文件存储配置
+dromara:
+  x-file-storage:
+    default-platform: ${X_FILE_STORAGE_PLATFORM:local-plus-1}
+    local-plus:
+      - platform: local-plus-1
+        enable-storage: true
+        enable-access: true
+        domain: ${X_FILE_STORAGE_DOMAIN:http://localhost:${server.port}/files/}
+        base-path: ${X_FILE_STORAGE_BASE_PATH:}
+        storage-path: ${X_FILE_STORAGE_STORAGE_PATH:./data/files/}
+        path-patterns:
+          - /files/**

@@ -1,0 +1,7 @@
+{
+  "action": "get_receivables",
+  "params": {
+    "period": "2026-05"
+  },
+  "trace_id": "trace-finance-001"
+}

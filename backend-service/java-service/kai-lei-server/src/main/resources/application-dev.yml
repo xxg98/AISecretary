@@ -1,0 +1,122 @@
+# 开发环境：默认不启用 Nacos，方便本地直接启动
+spring:
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+      config:
+        enabled: false
+  datasource:
+    dynamic:
+      primary: master
+      strict: false
+      datasource:
+        master:
+          url: jdbc:mysql://${MYSQL_HOST:192.168.110.106}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:kai_lei_ai_secretary}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+          username: ${MYSQL_USERNAME:root}
+          password: ${MYSQL_PASSWORD:root123456}
+          driver-class-name: com.mysql.cj.jdbc.Driver
+#        slave_1:
+#          url: jdbc:mysql://47.109.136.165:3306/springboot?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#          username: root
+#          password: 9u732uuAcu*
+  ai:
+    openai:
+      api-key: ${SPRING_AI_OPENAI_API_KEY:sk-7f77363f919e4eb1abb26dae977d56d0}
+      base-url: ${SPRING_AI_OPENAI_BASE_URL:https://api.deepseek.com/v1}
+      chat:
+        options:
+          model: ${SPRING_AI_OPENAI_CHAT_MODEL:deepseek-chat}
+          temperature: 0.7
+  data:
+    redis:
+      # Redis服务器地址
+      host: ${REDIS_HOST:192.168.110.106}
+      # Redis端⼝
+      port: ${REDIS_PORT:6379}
+      # Redis密码（⽆密码留空，⽣产必设）
+      password: ${REDIS_PASSWORD:}
+      # 数据库索引（默认0，⼤项⽬可按业务分库，0-15共16个库）
+      database: ${REDIS_DATABASE:0}
+      # 连接超时时间（毫秒）
+      timeout: 3000
+      lettuce:
+        pool:
+          enabled: true
+          # 最⼤活跃连接数（⼤项⽬根据服务器配置调优，推荐8-16，⾼并发可设32）
+          max-active: 16
+          # 最⼤空闲连接数
+          max-idle: 8
+          # 最⼩空闲连接数
+          min-idle: 2
+          # 连接等待最⼤时间（毫秒，负数表⽰⽆限制）
+          max-wait: -1
+
+server:
+  port: ${SERVER_PORT:8083}
+
+users:
+  name: 开发环境
+  open: true
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.kailei.aisecretary.controller
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+# 正向工程
+auto-table:
+  # 运行模式：none | validate | create | update（默认）
+  mode: update
+  # 是否显示 banner
+  show-banner: true
+  # 自动删除实体中不存在的字段（谨慎开启）
+  auto-drop-column: true
+  # 自动创建数据库
+  auto-build-database: true
+
+# XXL-JOB
+xxl:
+  job:
+    admin:
+      ### 调度中心部署根地址
+      addresses: ${XXL_JOB_ADMIN_ADDRESSES:http://192.168.110.106:8080/xxl-job-admin}
+      accessToken: ${XXL_JOB_ADMIN_ACCESS_TOKEN:default_token_123}
+      timeout: ${XXL_JOB_ADMIN_TIMEOUT:3}
+    executor:
+      ### 执行器启用开关
+      enabled: ${XXL_JOB_EXECUTOR_ENABLED:true}
+      appname: ${XXL_JOB_EXECUTOR_APPNAME:xxl-job-sjy}
+      address: ${XXL_JOB_EXECUTOR_ADDRESS:}
+      ip: ${XXL_JOB_EXECUTOR_IP:}
+      port: ${XXL_JOB_EXECUTOR_PORT:0}
+      logpath: ${XXL_JOB_EXECUTOR_LOGPATH:/data/applogs/xxl-job/jobhandler}
+      logretentiondays: ${XXL_JOB_EXECUTOR_LOGRETENTIONDAYS:30}
+      excludedpackage: ${XXL_JOB_EXECUTOR_EXCLUDEDPACKAGE:org.springframework.spring}
+# x-file-storage 文档/文件存储配置
+dromara:
+  x-file-storage:
+    default-platform: ${X_FILE_STORAGE_PLATFORM:local-plus-1}
+    local-plus:
+       platform: local-plus-1
+       enable-storage: true
+       enable-access: true
+       domain: ${X_FILE_STORAGE_DOMAIN:http://localhost:${server.port}/files/}
+       base-path: ${X_FILE_STORAGE_BASE_PATH:}
+       storage-path: ${X_FILE_STORAGE_STORAGE_PATH:./data/files/}
+       path-patterns:
+        - /files/**

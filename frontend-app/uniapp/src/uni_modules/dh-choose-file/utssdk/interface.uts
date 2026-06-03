@@ -1,0 +1,100 @@
+/**
+ * interface.uts
+ * DH文件选择器接口定义
+ *
+ * 功能：从设备存储中选择文件
+ * 平台：Android / iOS / HarmonyOS
+ */
+
+/**
+ * 选择到的单个文件信息
+ */
+export type ChooseFileItem = {
+  /** 文件本地路径（file:// 协议，可直接访问） */
+  path : string
+  /** 文件名（含扩展名） */
+  name : string
+  /** 文件大小（字节） */
+  size : number
+  /** MIME 类型，例如 "audio/mpeg" */
+  mimeType : string
+  /** 小写扩展名（不含点），例如 "mp3" */
+  extension : string
+  /** 媒体时长（毫秒），音频/视频文件有效，其他文件为 0 */
+  duration : number
+}
+
+/**
+ * 选择成功回调结果
+ */
+export type ChooseFileSuccess = {
+  /** 选中的文件列表 */
+  files : ChooseFileItem[]
+}
+
+/**
+ * 错误码
+ * - 8020001：用户取消选择
+ * - 8020002：权限被拒绝
+ * - 8020003：文件读取失败
+ * - 8020004：初始化失败
+ */
+export type ChooseFileErrorCode = 8020001 | 8020002 | 8020003 | 8020004
+
+/**
+ * 选择失败回调结果
+ */
+export interface ChooseFileFail extends IUniError {
+  errCode : ChooseFileErrorCode
+}
+
+/**
+ * 选择文件的参数
+ *
+ * fileTypes 支持的值：
+ * - 'all'     所有文件（默认）
+ * - 'image'   图片（jpg/png/gif/webp/bmp 等）
+ * - 'video'   视频（mp4/mov/avi/mkv 等）
+ * - 'audio'   音频（mp3/wav/aac/m4a 等）
+ * - 'doc'     文档（pdf/word/excel/ppt）
+ * - 'text'    文本文件（txt/json/xml/md 等）
+ * - 'archive' 压缩包（zip/rar/7z 等）
+ * - 'file'    所有文档+文本+压缩包
+ *
+ * 可传入多个值，例如 ['image', 'video'] 表示同时支持图片和视频
+ *
+ * extensions 优先级高于 fileTypes：
+ * 若同时提供 extensions，则只显示匹配扩展名的文件，fileTypes 不再生效。
+ */
+export type ChooseFileOptions = {
+  /**
+   * 最多选择文件数量，默认 1
+   */
+  count ?: number
+  /**
+   * 文件类型过滤，默认 ['all']
+   */
+  fileTypes ?: string[]
+  /**
+   * 扩展名白名单（不含点，小写），优先级高于 fileTypes。
+   * 例如 ['jpg', 'mp4'] 只显示 jpg 和 mp4 文件。
+   */
+  extensions ?: string[]
+  /**
+   * 成功回调
+   */
+  success ?: (res : ChooseFileSuccess) => void
+  /**
+   * 失败回调
+   */
+  fail ?: (res : ChooseFileFail) => void
+  /**
+   * 完成回调（无论成功或失败都会调用）
+   */
+  complete ?: () => void
+}
+
+/**
+ * 选择文件函数类型
+ */
+export type ChooseFile = (options : ChooseFileOptions) => void

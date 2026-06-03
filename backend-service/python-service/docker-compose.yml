@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  kai-lei-python-service:
+    build: .
+    container_name: kai-lei-python-service
+    ports:
+      - "8090:8090"
+    env_file:
+      - .env
+    environment:
+      PYTHON_HOST: 0.0.0.0
+      PYTHON_PORT: 8090
+      JAVA_SERVICE_BASE_URL: http://host.docker.internal:8083
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

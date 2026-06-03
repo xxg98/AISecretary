@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  kai-lei-python-service:
+    build: .
+    image: python-service:latest
+    container_name: kai-lei-python-service
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    environment:
+      TZ: Asia/Shanghai
+      PYTHON_SERVICE_NAME: kai-lei-python-service
+      PYTHON_ENV: prod
+      PYTHON_DEBUG: "false"
+      PYTHON_HOST: 0.0.0.0
+      PYTHON_PORT: 8090
+      JAVA_SERVICE_BASE_URL: ${JAVA_SERVICE_BASE_URL:-http://host.docker.internal:8083}
+      JAVA_SERVICE_TIMEOUT_SECONDS: ${JAVA_SERVICE_TIMEOUT_SECONDS:-10}
+      MQ_ENABLED: ${MQ_ENABLED:-false}
+      MQ_BROKER: ${MQ_BROKER:-rabbitmq}
+      MQ_URL: ${MQ_URL:-amqp://guest:guest@host.docker.internal:5672/}
+      MQ_EXCHANGE: ${MQ_EXCHANGE:-kai.lei.ai.secretary}
+      MQ_REQUEST_QUEUE: ${MQ_REQUEST_QUEUE:-python.tasks}
+      MQ_RESULT_QUEUE: ${MQ_RESULT_QUEUE:-java.callbacks}
+      REDIS_URL: ${REDIS_URL:-redis://host.docker.internal:6379/1}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./logs:/app/logs

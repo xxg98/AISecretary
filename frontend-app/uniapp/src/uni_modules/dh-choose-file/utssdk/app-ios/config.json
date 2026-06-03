@@ -1,0 +1,9 @@
+{
+  "frameworks": [
+    "UniformTypeIdentifiers"
+  ],
+  "deploymentTarget": "14.0",
+  "ios": {
+    "sourceFiles": ["DHChooseFilePlugin.swift"]
+  }
+}

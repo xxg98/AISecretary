@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+
+
+    <parent>
+
+        <groupId>org.springframework.boot</groupId>
+
+        <artifactId>spring-boot-starter-parent</artifactId>
+
+        <version>3.5.9</version>
+
+        <relativePath/>
+
+    </parent>
+
+
+
+    <groupId>com.xxgc</groupId>
+
+    <artifactId>kai-lei-ai-secretary</artifactId>
+
+    <version>0.0.1-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <name>kai-lei-ai-secretary</name>
+
+    <description>凯磊 AI 秘书 Java 后端父工程</description>
+
+
+
+    <modules>
+
+        <module>kai-lei-common</module>
+
+        <module>kai-lei-framework</module>
+
+        <module>kai-lei-system</module>
+
+        <module>kai-lei-business</module>
+
+        <module>kai-lei-server</module>
+
+    </modules>
+
+
+
+    <properties>
+
+        <java.version>21</java.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <lombok.version>1.18.42</lombok.version>
+
+        <spring-ai.version>1.1.2</spring-ai.version>
+
+        <spring-cloud.version>2025.0.0</spring-cloud.version>
+
+        <spring-cloud-alibaba.version>2025.1.0.0</spring-cloud-alibaba.version>
+
+        <mybatis-plus.version>3.5.15</mybatis-plus.version>
+
+        <dynamic-datasource.version>4.5.0</dynamic-datasource.version>
+
+        <knife4j.version>4.4.0</knife4j.version>
+
+        <hutool.version>5.8.42</hutool.version>
+
+        <sa-token.version>1.45.0</sa-token.version>
+
+        <auto-table.version>2.5.15</auto-table.version>
+
+        <commons-pool2.version>2.13.1</commons-pool2.version>
+
+        <xxl-job.version>3.4.0</xxl-job.version>
+
+        <javax-mail.version>1.6.2</javax-mail.version>
+        <x-file-storage.version>2.3.0</x-file-storage.version>
+
+    </properties>
+
+
+
+    <dependencyManagement>
+
+        <dependencies>
+
+            <dependency>
+
+                <groupId>org.springframework.cloud</groupId>
+
+                <artifactId>spring-cloud-dependencies</artifactId>
+
+                <version>${spring-cloud.version}</version>
+
+                <type>pom</type>
+
+                <scope>import</scope>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>com.alibaba.cloud</groupId>
+
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+
+                <version>${spring-cloud-alibaba.version}</version>
+
+                <type>pom</type>
+
+                <scope>import</scope>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>org.springframework.ai</groupId>
+
+                <artifactId>spring-ai-bom</artifactId>
+
+                <version>${spring-ai.version}</version>
+
+                <type>pom</type>
+
+                <scope>import</scope>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>com.xxgc</groupId>
+
+                <artifactId>kai-lei-common</artifactId>
+
+                <version>${project.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>com.xxgc</groupId>
+
+                <artifactId>kai-lei-framework</artifactId>
+
+                <version>${project.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>com.xxgc</groupId>
+
+                <artifactId>kai-lei-system</artifactId>
+
+                <version>${project.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>com.xxgc</groupId>
+
+                <artifactId>kai-lei-business</artifactId>
+
+                <version>${project.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>com.baomidou</groupId>
+
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+
+                <version>${mybatis-plus.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>com.baomidou</groupId>
+
+                <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
+
+                <version>${dynamic-datasource.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>com.github.xiaoymin</groupId>
+
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+
+                <version>${knife4j.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>cn.hutool</groupId>
+
+                <artifactId>hutool-all</artifactId>
+
+                <version>${hutool.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>cn.dev33</groupId>
+
+                <artifactId>sa-token-spring-boot3-starter</artifactId>
+
+                <version>${sa-token.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>org.dromara.autotable</groupId>
+
+                <artifactId>auto-table-spring-boot-starter</artifactId>
+
+                <version>${auto-table.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>org.dromara.x-file-storage</groupId>
+
+                <artifactId>x-file-storage-spring</artifactId>
+
+                <version>${x-file-storage.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>org.apache.commons</groupId>
+
+                <artifactId>commons-pool2</artifactId>
+
+                <version>${commons-pool2.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>com.xuxueli</groupId>
+
+                <artifactId>xxl-job-core</artifactId>
+
+                <version>${xxl-job.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>com.sun.mail</groupId>
+
+                <artifactId>javax.mail</artifactId>
+
+                <version>${javax-mail.version}</version>
+
+            </dependency>
+
+            <dependency>
+
+                <groupId>org.projectlombok</groupId>
+
+                <artifactId>lombok</artifactId>
+
+                <version>${lombok.version}</version>
+
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
+
+
+
+    <build>
+
+        <pluginManagement>
+
+            <plugins>
+
+                <plugin>
+
+                    <groupId>org.apache.maven.plugins</groupId>
+
+                    <artifactId>maven-compiler-plugin</artifactId>
+
+                    <configuration>
+
+                        <proc>full</proc>
+
+                        <annotationProcessorPaths>
+
+                            <path>
+
+                                <groupId>org.projectlombok</groupId>
+
+                                <artifactId>lombok</artifactId>
+
+                                <version>${lombok.version}</version>
+
+                            </path>
+
+                        </annotationProcessorPaths>
+
+                    </configuration>
+
+                </plugin>
+
+                <plugin>
+
+                    <groupId>org.springframework.boot</groupId>
+
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+
+                </plugin>
+
+            </plugins>
+
+        </pluginManagement>
+
+    </build>
+
+</project>
+

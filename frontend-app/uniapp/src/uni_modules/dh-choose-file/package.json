@@ -1,0 +1,132 @@
+{
+  "id": "dh-choose-file",
+  "displayName": "UTS原生文件选择器（Android+iOS+鸿蒙）",
+  "version": "1.0.5",
+  "description": "支持Android/iOS/HarmonyOS的原生文件选择插件。按类型过滤（音频/视频/图片/文档/文本/压缩包），支持自定义扩展名白名单、多选，返回 路径、文件名、大小、MIME 类型、扩展名。",
+  "keywords": [
+    "chooseFile",
+    "文件选择",
+    "文件选择器",
+    "音频选择",
+    "文档选择"
+],
+  "repository": "",
+  "engines": {
+    "HBuilderX": "^3.6.8",
+    "uni-app": "^4.0",
+    "uni-app-x": "^5.0"
+  },
+  "dcloudext": {
+    "type": "uts",
+    "sale": {
+      "regular": {
+        "price": "8.88"
+      },
+      "sourcecode": {
+        "price": "388.00"
+      }
+    },
+    "contact": {
+      "qq": "1021927867"
+    },
+    "declaration": {
+      "ads": "无",
+      "data": "插件不采集任何数据",
+      "permissions": "无"
+    },
+    "darkmode": "√",
+    "i18n": "√",
+    "widescreen": "√",
+    "npmurl": ""
+  },
+  "uni_modules": {
+    "dependencies": [],
+    "encrypt": [],
+    "platforms": {
+      "client": {
+        "uni-app": {
+          "app": {
+            "android": {
+              "extVersion": "1.0.0",
+              "minVersion": "21"
+            },
+            "ios": {
+              "extVersion": "1.0.0",
+              "minVersion": "14"
+            },
+            "harmony": {
+              "extVersion": "1.0.0",
+              "minVersion": "9"
+            },
+            "nvue": {
+                "extVersion": "1.0.0",
+                "minVersion": ""
+            },
+            "vue": {
+                "extVersion": "1.0.0",
+                "minVersion": ""
+            }
+          },
+          "mp": {
+            "alipay": "-",
+            "baidu": "-",
+            "harmony": "-",
+            "jd": "-",
+            "kuaishou": "-",
+            "lark": "-",
+            "qq": "-",
+            "toutiao": "-",
+            "weixin": "-",
+            "xhs": "-"
+          },
+          "quickapp": {
+            "huawei": "-",
+            "union": "-"
+          },
+          "vue": {
+            "vue2": {
+                "extVersion": "1.0.0",
+                "minVersion": ""
+            },
+            "vue3": {
+                "extVersion": "1.0.0",
+                "minVersion": ""
+            }
+          },
+          "web": {
+            "chrome": "-",
+            "safari": "-"
+          }
+        },
+        "uni-app-x": {
+          "app": {
+            "android": {
+              "extVersion": "1.0.0",
+              "minVersion": "21"
+            },
+            "harmony": {
+              "extVersion": "1.0.0",
+              "minVersion": "9"
+            },
+            "ios": {
+              "extVersion": "1.0.0",
+              "minVersion": "14"
+            }
+          },
+          "mp": {
+            "weixin": "-"
+          },
+          "web": {
+            "chrome": "-",
+            "safari": "-"
+          }
+        }
+      },
+      "cloud": {
+        "tcb": "x",
+        "aliyun": "x",
+        "alipay": "x"
+      }
+    }
+  }
+}

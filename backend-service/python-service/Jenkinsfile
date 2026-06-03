@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    environment {
+        PYTHON_SERVICE_DIR = 'backend-service/python-service'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                dir("${PYTHON_SERVICE_DIR}") {
+                    sh '''
+                        docker-compose -f docker-compose-prod.yml down --remove-orphans || true
+                        docker-compose -f docker-compose-prod.yml up -d --build
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Python service deployed successfully.'
+        }
+        failure {
+            echo 'Python service deployment failed.'
+        }
+    }
+}
