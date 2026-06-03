@@ -12,7 +12,7 @@ spring:
       strict: false
       datasource:
         master:
-          url: jdbc:mysql://${MYSQL_HOST:192.168.110.106}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:kai_lei_ai_secretary}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+          url: jdbc:mysql://${MYSQL_HOST:172.20.10.9}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:kai_lei_ai_secretary}?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
           username: ${MYSQL_USERNAME:root}
           password: ${MYSQL_PASSWORD:root123456}
           driver-class-name: com.mysql.cj.jdbc.Driver
@@ -32,9 +32,9 @@ spring:
   data:
     redis:
       # Redis服务器地址
-      host: ${REDIS_HOST:192.168.110.106}
+      host: ${REDIS_HOST:172.20.10.9}
       # Redis端⼝
-      port: ${REDIS_PORT:6379}
+      port: ${REDIS_PORT:16379}
       # Redis密码（⽆密码留空，⽣产必设）
       password: ${REDIS_PASSWORD:}
       # 数据库索引（默认0，⼤项⽬可按业务分库，0-15共16个库）
@@ -94,7 +94,7 @@ xxl:
   job:
     admin:
       ### 调度中心部署根地址
-      addresses: ${XXL_JOB_ADMIN_ADDRESSES:http://192.168.110.106:8080/xxl-job-admin}
+      addresses: ${XXL_JOB_ADMIN_ADDRESSES:http://172.20.10.9:8080/xxl-job-admin}
       accessToken: ${XXL_JOB_ADMIN_ACCESS_TOKEN:default_token_123}
       timeout: ${XXL_JOB_ADMIN_TIMEOUT:3}
     executor:
